@@ -18,7 +18,7 @@ const About = () => {
                 setInView(entry.isIntersecting); // Cambia el estado si el elemento está en vista
             },
             {
-                threshold: 0.2, // Ajuste el umbral de visibilidad al 20%
+                threshold: 0, // Ajuste el umbral de visibilidad al 10%
             }
         );
 
