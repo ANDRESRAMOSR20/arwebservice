@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 const navLinks = [
     { title: "About", path: "#about" },
     { title: "Services", path: "#service" },
-    { title: "Questions", path: "#faq" }, // Agregado aquí para incluir FAQ
+    { title: "Questions", path: "#faq" },
 ];
 
 const Navbar = () => {
@@ -38,10 +38,14 @@ const Navbar = () => {
     };
 
     return (
-        <div className="text-white/70 pt6">
+        <div className="text-white/70 pt-6">
             {/* Desktop Navbar */}
-            <div className="hidden md:flex items-center px-4 py-2 mx-auto max-w-[400px]">
-                <ul className="flex flex-row p-4 space-x-8">
+            <div className="hidden md:flex  justify-between px-4 py-2 mx-auto max-w-[1200px]">
+                {/* Business Logo/Name */}
+                <h1 className="text-2xl font-bold text-white text-left -ml-[75px]">arWebService</h1>
+
+                {/* Navigation Links */}
+                <ul className="flex flex-row p-4 space-x-10 mr-[450px]">
                     {navLinks.map((link, index) => (
                         <li key={index}>
                             <Link href={link.path}>
@@ -67,6 +71,10 @@ const Navbar = () => {
                 variants={menuVariants}
                 className="fixed left-0 top-0 w-full z-40 bg-black/90"
             >
+                <div className="text-center mt-5">
+                    {/* Mobile Business Logo/Name */}
+                    <h1 className="text-2xl font-bold text-white">arWebService</h1>
+                </div>
                 <ul className="text-4x1 font-semibold my-24 text-center space-y-8">
                     {navLinks.map((link, index) => (
                         <li key={index}>
@@ -82,3 +90,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
