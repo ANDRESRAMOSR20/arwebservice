@@ -9,13 +9,17 @@ import instagram from "../assets/instagram.png";
 
 const About = () => {
     const [inView, setInView] = useState(false);
+    const [hasAnimated, setHasAnimated] = useState(false); // Estado para controlar la animación
     const ref = useRef(null);
     const secondRef = useRef(null); // Referencia adicional para el segundo grid
 
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => {
-                setInView(entry.isIntersecting); // Cambia el estado si el elemento está en vista
+                if (entry.isIntersecting && !hasAnimated) {
+                    setInView(true); // Activar la animación solo una vez
+                    setHasAnimated(true); // Marcar que la animación ya se ejecutó
+                }
             },
             {
                 threshold: 0, // Ajuste el umbral de visibilidad al 10%
@@ -38,10 +42,10 @@ const About = () => {
                 observer.unobserve(secondRef.current); // Des-observa el segundo grid al desmontar
             }
         };
-    }, []);
+    }, [hasAnimated]); // Solo ejecutar el efecto si `hasAnimated` cambia
 
     return (
-        <div className="max-w-[1200px] mx-auto bg-black" id="about">
+        <div className="max-w-[85%] sm:max-w-[1200px] mx-auto bg-black" id="service">
             {/* Sección con fondo */}
             <div
                 className="bg-gradient-to-b from-gray-900 via-gray-800 to-black backdrop-blur-lg rounded-xl overflow-hidden p-8"
@@ -49,9 +53,12 @@ const About = () => {
             >
                 {/* Primer Grid con animación de entrada desde la derecha */}
                 <motion.div
-                    className="grid grid-cols-8 gap-4 place-items-center"
+                    className="grid grid-cols-1 md:grid-cols-8 gap-4 place-items-center"
                     initial={{ opacity: 0, x: 200 }} // Inicia desde la derecha
-                    animate={{ opacity: inView ? 1 : 0, x: inView ? 0 : 200 }} // Animación activa cuando está en vista
+                    animate={{
+                        opacity: inView ? 1 : 0,
+                        x: inView ? 0 : 200,
+                    }} // Animación activa cuando está en vista
                     transition={{ duration: 0.8 }} // Duración de la animación
                 >
                     {/* Facebook and WhatsApp in the first column */}
@@ -65,7 +72,7 @@ const About = () => {
                                 bottom: 50,
                             }} // Límites para el drag
                             whileDrag={{ scale: 1.1 }}
-
+                            className="hidden md:block" // Oculta el logo de WhatsApp en móviles
                         >
                             <Image
                                 draggable="false"
@@ -85,13 +92,13 @@ const About = () => {
                             whileDrag={{ scale: 1.1 }}
                             initial={{ top: "80px", left: "8px" }} // Posición inicial
                             animate={{ top: "80px", left: "8px" }} // Posición final después de la animación
-
+                            className="hidden md:block" // Oculta el logo de WhatsApp en móviles
                         >
                             <Image
                                 draggable="false"
                                 src={whatsapp}
                                 alt="WhatsApp"
-                                className="w-[130px] h-[130px]"
+                                className="w-[130px] h-[130px] "
                             />
                         </motion.div>
                     </div>
@@ -105,7 +112,7 @@ const About = () => {
                             right: 50,
                             bottom: 50,
                         }}
-                        className="flex justify-start row-span-3 w-full"
+                        className=" justify-start row-span-3 w-full hidden md:block"
                     >
                         <Image
                             draggable="false"
@@ -116,11 +123,11 @@ const About = () => {
                     </motion.div>
 
                     {/* Texto */}
-                    <div className="col-span-6 text-xl mx-auto mt-8 text-white/80">
-                        <h2 className="text-6xl font-bold text-white pb-10">
+                    <div className="col-span-6 text-lg sm:text-xl mx-auto mt-8 text-white/80 px-4 sm:px-0">
+                        <h2 className="text-4xl sm:text-6xl font-bold text-white pb-6 sm:pb-10 text-center sm:text-left">
                             System Compatibility <br /> for Your Enterprise
                         </h2>
-                        <p className="text-left">
+                        <p className="text-justify sm:text-left leading-relaxed">
                             arWebService develops AI-driven solutions to optimize business
                             processes. We specialize in designing and implementing virtual
                             agents, chatbots, and Retrieval-Augmented Generation{" "}
@@ -137,49 +144,83 @@ const About = () => {
             </div>
 
             {/* Segundo Grid con animación de entrada desde abajo */}
-            <div
-                className="grid grid-cols-6 gap-4 place-items-center mt-10"
-                ref={secondRef} // Aplica el ref aquí para el segundo grid
-            >
+            <div className="grid sm:grid-cols-6 gap-4 place-items-center mt-10">
                 {[...Array(3)].map((_, index) => (
                     <motion.div
                         key={index}
-                        className="col-span-2 text-xl mx-auto mt-8 text-white/80 bg-gradient-to-b from-gray-900 via-gray-800 to-black backdrop-blur-lg rounded-xl overflow-hidden p-8"
+                        className="col-span-2 text-xl mx-auto mt-8 text-white/80 bg-gradient-to-b from-gray-900 via-gray-800 to-black backdrop-blur-lg rounded-xl overflow-hidden p-8 min-h-[476px]"
                         initial={{ opacity: 0, y: 50 }} // Empieza desde abajo
-                        animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : 50 }} // Activar animación cuando entra en vista
+                        animate={{
+                            opacity: inView ? 1 : 0,
+                            y: inView ? 0 : 50,
+                        }} // Activar animación cuando entra en vista
                         transition={{ duration: 0.8, delay: index * 0.3 }} // Retraso secuencial para cada div
                     >
-                        <h2 className="text-center text-4xl font-bold from-blue-200 via-indigo-500 to-purple-500  bg-gradient-to-r text-transparent bg-clip-text">
+                        <h2 className="text-center text-4xl font-bold from-blue-200 via-indigo-500 to-purple-500 bg-gradient-to-r text-transparent bg-clip-text">
                             {/* Títulos dinámicos según el índice */}
                             {index === 0 && "Agent AI"}
                             {index === 1 && "RAG"}
                             {index === 2 && "Chat Bot"}
                         </h2>
-                        <p className="mb-4 mt-4 text-center">
+                        <p className="mb-4 mt-4 text-justify hyphens-auto">
                             {/* Descripciones dinámicas */}
                             {index === 0 &&
-                                "A robust web service that automates repetitive tasks and decision-making processes for businesses, powered by cutting-edge AI."}
+                                "Transform your business operations with Agent AI, a virtual assistant that automates tasks, streamlines workflows, and integrates seamlessly into your existing systems."}
                             {index === 1 &&
-                                "An intelligent web service that enhances your application with accurate, up-to-date, and domain-specific knowledge delivery."}
+                                "Empower your team with RAG, the ultimate AI-powered knowledge solution. It fetches real-time data and generates accurate, contextual responses for informed decision-making."}
                             {index === 2 &&
-                                "A conversational web service enabling businesses to engage users across multiple platforms with human-like interactions."}
+                                "Engage your audience like never before with our AI Chatbot, designed to enhance customer experiences and boost satisfaction."}
                         </p>
                         <ul className="text-xs space-y-5 text-[#A3B5DF]">
-                            {/* Lista con puntos */}
-                            <li className="before:content-['✔'] before:mr-2 before:text-green-500 flex flex-star">
-                                Execute actions across platforms like CRM, ERP.
-                            </li>
-                            <li className="before:content-['✔'] before:mr-2 before:text-green-500 flex flex-star">
-                                Easily integrate into your existing web applications via APIs.
-                            </li>
-                            <li className="before:content-['✔'] before:mr-2 before:text-green-500 flex flex-star">
-                                Provide personalized and contextual responses based on user
-                                interactions.
-                            </li>
-                            <li className="before:content-['✔'] before:mr-2 before:text-green-500 flex flex-star">
-                                Customer support automation, lead qualification, and operational
-                                workflows.
-                            </li>
+                            {/* Lista con puntos dinámicos */}
+                            {index === 0 && (
+                                <>
+                                    <li className="before:content-['✔'] before:mr-2 before:text-green-500 flex flex-star">
+                                        Provides actionable reports and analytics.
+                                    </li>
+                                    <li className="before:content-['✔'] before:mr-2 before:text-green-500 flex flex-star">
+                                        Works across your favorite apps and tools.
+                                    </li>
+                                    <li className="before:content-['✔'] before:mr-2 before:text-green-500 flex flex-star">
+                                        24/7 Availability, never stops working for you.
+                                    </li>
+                                    <li className="before:content-['✔'] before:mr-2 before:text-green-500 flex flex-star">
+                                        Tailored solutions for your business needs
+                                    </li>
+                                </>
+                            )}
+                            {index === 1 && (
+                                <>
+                                    <li className="before:content-['✔'] before:mr-2 before:text-green-500 flex flex-star">
+                                        Real-time Data Retrieval, always access the latest information.
+                                    </li>
+                                    <li className="before:content-['✔'] before:mr-2 before:text-green-500 flex flex-star">
+                                        Custom Knowledge Base, tailored to your unique content and data.
+                                    </li>
+                                    <li className="before:content-['✔'] before:mr-2 before:text-green-500 flex flex-star">
+                                        Tailored to your unique content and data.
+                                    </li>
+                                    <li className="before:content-['✔'] before:mr-2 before:text-green-500 flex flex-star">
+                                        Seamless Scalability, adapts as your business grows.
+                                    </li>
+                                </>
+                            )}
+                            {index === 2 && (
+                                <>
+                                    <li className="before:content-['✔'] before:mr-2 before:text-green-500 flex flex-star">
+                                        Smart Conversations, understands and responds naturally.
+                                    </li>
+                                    <li className="before:content-['✔'] before:mr-2 before:text-green-500 flex flex-star">
+                                        Instant Resolutions, reduces response times dramatically.
+                                    </li>
+                                    <li className="before:content-['✔'] before:mr-2 before:text-green-500 flex flex-star">
+                                        Multi-channel Support, available on WhatsApp, websites, and more.
+                                    </li>
+                                    <li className="before:content-['✔'] before:mr-2 before:text-green-500 flex flex-star">
+                                        Customizable Personality: Aligns with your brand’s voice and tone.
+                                    </li>
+                                </>
+                            )}
                         </ul>
                     </motion.div>
                 ))}

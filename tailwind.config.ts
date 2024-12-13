@@ -9,8 +9,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+
+        primary: "#3490dc", // Ejemplo, ajusta según tus necesidades.
+        background: "#000000",
+        foreground: "#ffffff",
       },
       textShadow: {
         glow: "0 0 5px #FFD700, 0 0 10px #FF8C00, 0 0 15px #FF6347",
