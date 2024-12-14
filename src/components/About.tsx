@@ -14,6 +14,9 @@ const About = () => {
     const secondRef = useRef(null); // Referencia adicional para el segundo grid
 
     useEffect(() => {
+        const currentRef = ref.current;
+        const currentSecondRef = secondRef.current;
+
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting && !hasAnimated) {
@@ -26,20 +29,20 @@ const About = () => {
             }
         );
 
-        if (ref.current) {
-            observer.observe(ref.current); // Observa el primer grid
+        if (currentRef) {
+            observer.observe(currentRef); // Observa el primer grid
         }
 
-        if (secondRef.current) {
-            observer.observe(secondRef.current); // Observa el segundo grid
+        if (currentSecondRef) {
+            observer.observe(currentSecondRef); // Observa el segundo grid
         }
 
         return () => {
-            if (ref.current) {
-                observer.unobserve(ref.current); // Des-observa el primer grid al desmontar
+            if (currentRef) {
+                observer.unobserve(currentRef); // Des-observa el primer grid al desmontar
             }
-            if (secondRef.current) {
-                observer.unobserve(secondRef.current); // Des-observa el segundo grid al desmontar
+            if (currentSecondRef) {
+                observer.unobserve(currentSecondRef); // Des-observa el segundo grid al desmontar
             }
         };
     }, [hasAnimated]); // Solo ejecutar el efecto si `hasAnimated` cambia
