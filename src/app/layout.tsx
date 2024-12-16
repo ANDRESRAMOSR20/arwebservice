@@ -26,8 +26,8 @@ export default function RootLayout({
   return (
       <html lang="en">
       <head>
-        <meta name="facebook-domain-verification" content="xkwnkcfbqayfca7pq60pqnts1dgar5"/>
-        <title>arWebService-AI solution</title>
+          <meta name="facebook-domain-verification" content="f458f1qsw2830dqytsflvpzfi68xm9" />
+          <title>arWebService-AI solution</title>
       </head>
 
       <body
