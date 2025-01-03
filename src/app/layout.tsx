@@ -32,25 +32,26 @@ export default function RootLayout({
                 name="keywords"
                 content="AI solutions, web services, web development"
             />
-            <meta name="author" content="arWebService" />
+            <meta name="author" content="arWebService"/>
 
             {/* Open Graph (Social media sharing) */}
-            <meta property="og:title" content="arWebService - AI Solution" />
+            <meta property="og:title" content="arWebService - AI Solution"/>
             <meta
                 property="og:description"
                 content="A web services page specializing in AI solutions."
             />
-            <meta property="og:url" content="https://arwebservice.com" />
-            <meta property="og:image" content="https://arwebservice.com/favicon.ico" />
+            <meta property="og:url" content="https://arwebservice.com"/>
+            <meta property="og:image" content="https://arwebservice.com/bot.jpeg"/>
 
-            {/* Domain verification */}
+            {/* Domain verification-facebook */}
             <meta
                 name="facebook-domain-verification"
                 content="f458f1qsw2830dqytsflvpzfi68xm9"
             />
+            <meta name="google-site-verification" content="TaZd7GDZS8Y8wYK5lmWX9OD6_ViXZlPlmVn5EAawmi8"/>
 
             {/* Responsive */}
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         </head>
         <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
